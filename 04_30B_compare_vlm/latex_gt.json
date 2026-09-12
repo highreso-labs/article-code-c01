@@ -1,0 +1,153 @@
+{
+  "source": "https://arxiv.org/abs/2603.29961",
+  "input": "latex_test.pdf",
+  "note": "latex_compare.py の各問のID表に対応する正解。gold（または accept のいずれか）と答えセルが正規化後に完全一致すれば正解。数値は数値として比較するので 3.0 と 3 は同一とみなす。各問は印字の写し5項目と、定義・定理の意味を短答する1項目（e6 / c9 / w9）で構成している。",
+  "items": [
+    {
+      "id": "e1",
+      "qid": "q1",
+      "question": "u(n,k) が掛け合わせる素数 p の上限",
+      "gold": "k",
+      "accept": ["p≤k", "p<=k"]
+    },
+    {
+      "id": "e2",
+      "qid": "q1",
+      "question": "f(n) の定義で u(n,k) が超える量",
+      "gold": "n^2",
+      "accept": ["n^{2}", "n²"]
+    },
+    {
+      "id": "e3",
+      "qid": "q1",
+      "question": "Theorem 2.1 の上界に書かれた小数係数",
+      "gold": "6.20219"
+    },
+    {
+      "id": "e4",
+      "qid": "q1",
+      "question": "Theorem 2.1 の上界で (log n) の次数",
+      "gold": "2",
+      "accept": ["(log n)^2"]
+    },
+    {
+      "id": "e5",
+      "qid": "q1",
+      "question": "Theorem 2.1 の下界で (log n_j) にかかる係数（o(1) を除く）",
+      "gold": "1/2",
+      "accept": ["\\frac{1}{2}", "0.5", "(1/2)"]
+    },
+    {
+      "id": "e6",
+      "qid": "q1",
+      "question": "f(n) は u(n,k)>n^2 を満たす k のうちどれか",
+      "gold": "最小",
+      "accept": ["最小のk", "最小値", "min", "minimum", "the smallest k", "一番小さいk"]
+    },
+    {
+      "id": "c1",
+      "qid": "q2",
+      "question": "A の先頭に置く区間",
+      "gold": "[2,3]",
+      "accept": ["[2, 3]"]
+    },
+    {
+      "id": "c2",
+      "qid": "q2",
+      "question": "c_k の式",
+      "gold": "4·5^{k-1}",
+      "accept": ["4*5^{k-1}", "4 \\cdot 5^{k-1}", "4\\cdot5^{k-1}"]
+    },
+    {
+      "id": "c4",
+      "qid": "q2",
+      "question": "B_k の右端",
+      "gold": "6·5^{k-1}-1",
+      "accept": ["6*5^{k-1}-1", "6 \\cdot 5^{k-1}-1"]
+    },
+    {
+      "id": "c7",
+      "qid": "q2",
+      "question": "k=0 のとき [2,3]+[2,3]",
+      "gold": "[4,6]",
+      "accept": ["[4, 6]"]
+    },
+    {
+      "id": "c8",
+      "qid": "q2",
+      "question": "帰納法で置く Q の式",
+      "gold": "5^{k-1}",
+      "accept": ["5^{k-1}"]
+    },
+    {
+      "id": "c9",
+      "qid": "q2",
+      "question": "Theorem 3.1 より、A を2分割すると少なくとも一方の A_i+A_i のギャップは有界か非有界か",
+      "gold": "非有界",
+      "accept": [
+        "有界でない",
+        "unbounded",
+        "not bounded",
+        "bounded gapsを持たない",
+        "有界ギャップを持たない",
+        "syndeticでない",
+        "いくらでも長い"
+      ]
+    },
+    {
+      "id": "w1",
+      "qid": "q3",
+      "question": "well-distributed の極限の右辺",
+      "gold": "0"
+    },
+    {
+      "id": "w3",
+      "qid": "q3",
+      "question": "Theorem 4.1 が well-distributed でないとする列",
+      "gold": "{α p_n}",
+      "accept": ["{αp_n}", "({α p_n})", "{α p_n}_{n≥1}", "({α p_n})_{n≥1}"]
+    },
+    {
+      "id": "w5",
+      "qid": "q3",
+      "question": "Theorem 4.2 の p_{r+m}-p_{r+1} の上界",
+      "gold": "q C_m",
+      "accept": ["qC_m", "q·C_m", "q*C_m", "q \\cdot C_m"]
+    },
+    {
+      "id": "w6",
+      "qid": "q3",
+      "question": "証明で固定する δ の開区間",
+      "gold": "(0,1/2)",
+      "accept": ["(0, 1/2)", "(0,0.5)", "(0, 0.5)"]
+    },
+    {
+      "id": "w8",
+      "qid": "q3",
+      "question": "Q の定義",
+      "gold": "⌈δ^{-1} C_m⌉",
+      "accept": [
+        "\\lceil δ^{-1} C_m \\rceil",
+        "ceil(δ^{-1} C_m)",
+        "⌈C_m/δ⌉",
+        "⌈\\delta^{-1} C_m⌉",
+        "\\lceil \\delta^{-1} C_m \\rceil"
+      ]
+    },
+    {
+      "id": "w9",
+      "qid": "q3",
+      "question": "Theorem 4.1 より、任意の実数 α について {α p_n} は well-distributed か",
+      "gold": "well-distributed でない",
+      "accept": [
+        "でない",
+        "否",
+        "いいえ",
+        "not well-distributed",
+        "never well-distributed",
+        "well distributed でない",
+        "well-distributedではない"
+      ]
+    }
+  ]
+}
