@@ -1,0 +1,25 @@
+[project]
+name = "unsloth-lora"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "datasets==4.3.0",
+    "pymupdf>=1.28.2",
+    "torch==2.10.0",
+    "torchao>=0.18.0",
+    "torchvision==0.25.0",
+    "transformers>=5.5.0",
+    "trl==0.22.2",
+    "unsloth>=2026.5.2",
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu128" }
+torchvision = { index = "pytorch-cu128" }
