@@ -1,0 +1,11 @@
+original_id: cbfc8e01dfa1f66d
+category: 防災白書2025
+image_type: Pie
+question_type: global=True, multi-hop=True, counting=False, external-knowledge=False, visual=False, other=False
+size: 963x492
+
+質問:
+阪神・淡路大震災において、近隣住民等による救出者数は、消防・警察・自衛隊による救出者数の、何倍になりますか。小数点以下第2位を四捨五入して求めてください。
+
+正解:
+3.4倍
