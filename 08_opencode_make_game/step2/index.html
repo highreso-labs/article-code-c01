@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Roguelike</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="status">HP: <span id="hp">20</span>/20 | Enemies: <span id="enemy-count">0</span></div>
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
+        <div id="message">Arrow keys to move</div>
+        <div id="overlay" class="hidden">
+            <div id="result-text"></div>
+            <button onclick="location.reload()">Retry</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

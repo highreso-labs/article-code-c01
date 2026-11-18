@@ -1,0 +1,56 @@
+body {
+    background-color: #222;
+    color: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: monospace;
+}
+
+#game-container {
+    position: relative;
+    text-align: center;
+}
+
+#status {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+canvas {
+    border: 4px solid #555;
+    background-color: #000;
+}
+
+#message {
+    margin-top: 10px;
+    height: 20px;
+}
+
+#overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+#overlay.hidden {
+    display: none;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+}
