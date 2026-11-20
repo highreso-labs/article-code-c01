@@ -40,6 +40,19 @@ let messageHistory = [];
 
 // Seeded Random
 let randomFunc = Math.random;
+function setupRandom() {
+    const params = new URLSearchParams(window.location.search);
+    const seedStr = params.get('seed');
+    if (seedStr) {
+        const seed = parseInt(seedStr, 10);
+        seedDisplay.innerText = seed;
+        randomFunc = mulberry32(seed);
+    } else {
+        const seed = Math.floor(Math.random() * 1000000);
+        seedDisplay.innerText = seed;
+        randomFunc = mulberry32(seed);
+    }
+}
 
 function mulberry32(a) {
     return function() {
@@ -51,33 +64,17 @@ function mulberry32(a) {
 }
 
 function initGame() {
-    const params = new URLSearchParams(window.location.search);
-    const seedStr = params.get('seed');
-    let seed = seedStr ? parseInt(seedStr, 10) : Math.floor(Math.random() * 1000000);
+    setupRandom();
 
-    let success = false;
-    for (let attempt = 0; attempt < 20; attempt++) {
-        randomFunc = mulberry32(seed);
-
+    let reachableTiles;
+    do {
         generateMap();
-        const reachable = keepLargestComponent();
-        if (reachable.length === 0) {
-            seed++;
-            continue;
-        }
+        spawnPlayer();
+        reachableTiles = ensureReachability();
+    } while (reachableTiles.length < 10); // Ensure a minimum playable area
 
-        spawnPlayer(reachable);
-        spawnEnemies();
-        spawnItems();
-
-        if (reachable.length >= 20 && enemies.length > 0) {
-            success = true;
-            break;
-        }
-        seed++;
-    }
-
-    seedDisplay.innerText = seed;
+    spawnEnemies();
+    spawnItems();
     draw();
 }
 
@@ -95,57 +92,51 @@ function generateMap() {
     }
 }
 
-function spawnPlayer(reachableTiles) {
-    const tile = reachableTiles[Math.floor(randomFunc() * reachableTiles.length)];
-    player = {
-        x: tile.x,
-        y: tile.y,
-        hp: 20,
-        maxHp: 20,
-        atk: 3,
-        symbol: '@',
-        color: '#44f'
-    };
+function spawnPlayer() {
+    let placed = false;
+    while (!placed) {
+        const x = Math.floor(randomFunc() * (GRID_SIZE - 2)) + 1;
+        const y = Math.floor(randomFunc() * (GRID_SIZE - 2)) + 1;
+        if (MAP[y][x] === 0) {
+            player = {
+                x: x,
+                y: y,
+                hp: 20,
+                maxHp: 20,
+                atk: 3,
+                symbol: '@',
+                color: '#44f'
+            };
+            placed = true;
+        }
+    }
 }
 
-function keepLargestComponent() {
-    const visited = new Set();
-    let largestComponent = [];
+function ensureReachability() {
+    const reachable = [];
+    const queue = [{x: player.x, y: player.y}];
+    const visited = new Set([`${player.x},${player.y}`]);
+
+    while (queue.length > 0) {
+        const {x, y} = queue.shift();
+        reachable.push({x, y});
+        for (const [dx, dy] of [[0,1],[0,-1],[1,0],[-1,0]]) {
+            const nx = x + dx, ny = y + dy;
+            if (nx >= 0 && nx < GRID_SIZE && ny >= 0 && ny < GRID_SIZE && MAP[ny][nx] === 0 && !visited.has(`${nx},${ny}`)) {
+                visited.add(`${nx},${ny}`);
+                queue.push({x: nx, y: ny});
+            }
+        }
+    }
 
     for (let y = 0; y < GRID_SIZE; y++) {
         for (let x = 0; x < GRID_SIZE; x++) {
             if (MAP[y][x] === 0 && !visited.has(`${x},${y}`)) {
-                const component = [];
-                const queue = [{x, y}];
-                visited.add(`${x},${y}`);
-
-                while (queue.length > 0) {
-                    const {x, y} = queue.shift();
-                    component.push({x, y});
-                    for (const [dx, dy] of [[0,1],[0,-1],[1,0],[-1,0]]) {
-                        const nx = x + dx, ny = y + dy;
-                        if (nx >= 0 && nx < GRID_SIZE && ny >= 0 && ny < GRID_SIZE && MAP[ny][nx] === 0 && !visited.has(`${nx},${ny}`)) {
-                            visited.add(`${nx},${ny}`);
-                            queue.push({x: nx, y: ny});
-                        }
-                    }
-                }
-                if (component.length > largestComponent.length) {
-                    largestComponent = component;
-                }
-            }
-        }
-    }
-
-    const largestSet = new Set(largestComponent.map(t => `${t.x},${t.y}`));
-    for (let y = 0; y < GRID_SIZE; y++) {
-        for (let x = 0; x < GRID_SIZE; x++) {
-            if (MAP[y][x] === 0 && !largestSet.has(`${x},${y}`)) {
                 MAP[y][x] = 1;
             }
         }
     }
-    return largestComponent;
+    return reachable;
 }
 
 function spawnEnemies() {
